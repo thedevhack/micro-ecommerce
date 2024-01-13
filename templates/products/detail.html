@@ -1,0 +1,42 @@
+{% include 'base.html' %}
+{% load tailwind_filters %}
+{% block content %}
+<div class="flex flex-col md:flex-row">
+        <div class="w-full md:w-3/4 space-y-4">
+        <!-- main-content-->
+                <h2 class="text-4xl font-bold ml-2 mt-4 dark:text-black">{{object.name}}</h2>
+                <p class="mb-3 text-gray-500 dark:text-black first-line:uppercase first-line:tracking-widest first-letter:text-7xl first-letter:font-bold first-letter:text-black dark:first-letter:text-black first-letter:me-3 first-letter:float-start">Track work across the enterprise through an open, collaborative platform. Link issues across Jira and ingest data from other software development tools, so your IT support and operations teams have richer contextual information to rapidly respond to requests, incidents, and changes.</p>
+                <p class="text-gray-500 dark:text-black">Deliver great service experiences fast - without the complexity of traditional ITSM solutions.Accelerate critical development work, eliminate toil, and deploy changes with ease, with a complete audit trail for every change.</p>
+                {% include 'products/attachments-table.html' with attachments=attachments is_owner=is_owner %}
+
+
+        </div>
+        <div class="w-full md:w-1/4 space-y-4">
+                <h3 class="text-center">Update Product</h3>
+                {% if is_owner %}
+                <h3>You own the product!</h3>
+                {% else %}
+                <div>
+                        {% include 'purchases/buy-btn-form.html' with product=object %}
+                </div>
+                {% endif %}
+                <!-- Photo Gallery-->
+                <div class="grid gap-4">
+                            <div>
+                                <img class="h-auto max-w-full rounded-lg" src="{{object.image.url}}" alt="{{object.name}}">
+                            </div>
+                </div>
+                <!-- sidebar-->
+                <div>
+                        {% if form %}
+                        <form action="." method="POST" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                {{form|crispy}}
+                                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" type="submit">Submit</button>
+                        </form>
+                        {% endif %}
+                </div>
+        </div>
+</div>
+
+{% endblock %}

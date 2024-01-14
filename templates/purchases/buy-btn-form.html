@@ -2,7 +2,7 @@
 <form method="POST" action="{% url 'purchases:start' %}">{% csrf_token %}
 <input type="hidden" name="handle" value="{{product.handle}}"/>
 <div class="flex items-baseline text-black-900 dark:text-black">
-    <span class="text-3xl font-semibold">$</span>
+    <span class="text-3xl font-semibold">₹</span>
     <span class="text-5xl font-extrabold tracking-tight">{{ product.get_display_price }}</span>
 </div>
 {% if not request.user.is_authenticated %}
